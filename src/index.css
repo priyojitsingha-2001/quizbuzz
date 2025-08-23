@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Inter:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-floating1: #60a5fa; /* blue-400 */
+  --color-floating2: #f472b6; /* pink-400 */
+  --color-floating3: #34d399; /* green-400 */
+}
