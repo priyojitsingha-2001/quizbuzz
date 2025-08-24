@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 const GIST_ID = import.meta.env.VITE_GIST_ID;
 const FILE_NAME = import.meta.env.VITE_GIST_FILENAME;
 const TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
 const GIST_URL = `https://api.github.com/gists/${GIST_ID}`;
 
-export default function Leaderboard() {
+export default function Leaderboard({ onBack }) {
   const [scores, setScores] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -42,12 +41,12 @@ export default function Leaderboard() {
           </li>
         ))}
       </ol>
-      <Link
-        to="/"
+      <button
+        onClick={onBack}
         className="mt-6 bg-white text-blue-600 font-semibold px-6 py-3 rounded-2xl shadow-lg hover:bg-gray-100 transition"
       >
-        Back to Home
-      </Link>
+        Back
+      </button>
     </div>
   );
 }
