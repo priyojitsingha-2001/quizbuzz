@@ -15,8 +15,21 @@ export default function Leaderboard({ onBack }) {
     });
     const data = await response.json();
     const parsed = JSON.parse(data.files[FILE_NAME].content);
+
+    // sort scores high → low
     parsed.sort((a, b) => b.score - a.score);
-    setScores(parsed);
+
+    // keep only highest score per name
+    const unique = [];
+    const seen = new Map();
+    for (const p of parsed) {
+      if (!seen.has(p.name)) {
+        seen.set(p.name, true);
+        unique.push(p);
+      }
+    }
+
+    setScores(unique);
     setLoading(false);
   };
 
@@ -33,11 +46,17 @@ export default function Leaderboard({ onBack }) {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-br from-blue-500 to-indigo-600 text-white px-4">
-      <h2 className="text-4xl font-bold mb-6">Leaderboard 🏆</h2>
+      <h2 className="text-4xl font-bold mb-6">Leaderboard</h2>
       <ol className="bg-white/20 backdrop-blur-md rounded-xl p-6 space-y-2 w-full max-w-md">
         {scores.map((p, i) => (
-          <li key={i} className="text-lg">
-            <span className="font-semibold">{i + 1}. {p.name}</span> — {p.score}
+          <li
+            key={i}
+            className="text-lg flex justify-between items-center"
+          >
+            <span>
+              {i + 1}. {p.name}
+            </span>
+            <span>{p.score}</span>
           </li>
         ))}
       </ol>
